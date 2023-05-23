@@ -31,8 +31,8 @@ const NavBar = ({ showNav }) => {
       );
 }
 
-NavBar.PropTypes = {
-    showNav: PropTypes.bool
+NavBar.propTypes = {
+  showNav: PropTypes.bool
 }
 
 export default NavBar
