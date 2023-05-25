@@ -17,8 +17,10 @@ axios.interceptors.response.use(res => {
     }
     if (res.data.code != 200) {
         if (res.data.msg) {
+            const result = res.data.msg
             // Toast.show(res.data.msg)
-            console.log(res.data.msg)
+            console.log(result)
+            Toast.show(result)
         }
         if (res.data.code == 401) {
             window.location.href = '/login'
