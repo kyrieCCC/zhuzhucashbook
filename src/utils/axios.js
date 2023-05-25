@@ -3,7 +3,8 @@ import { Toast } from 'zarm'
 
 const MODE = import.meta.env.MODE
 
-axios.defaults.baseURL = MODE == 'development' ? '/api' : 'http://localhost:7001'
+// axios.defaults.baseURL = MODE == 'development' ? '/api' : 'http://localhost:7001'
+axios.defaults.baseURL = 'http://127.0.0.1:7001'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['Authorization'] = `${localStorage.getItem('token') || null}`
@@ -15,7 +16,9 @@ axios.interceptors.response.use(res => {
         return Promise.reject(res)
     }
     if (res.data.code != 200) {
-        if (res.data.msg) Toast.show(res.data.msg)
+        if (res.data.msg) {
+            Toast.show(res.data.msg)
+        }
         if (res.data.code == 401) {
             window.location.href = '/login'
         }

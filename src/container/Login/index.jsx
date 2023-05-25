@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
 import s from "./style.module.less";
-import { Input, Cell, Button, Checkbox } from "zarm";
+import { Input, Cell, Button, Checkbox, Toast } from "zarm";
 import Captcha from 'react-captcha-code';
+import { post } from '@/utils'
 
 const Login = () => {
 
@@ -16,9 +17,39 @@ const Login = () => {
     setCaptcha(captcha)
   }, []);
 
+  // 提交注册信息
+  const onSubmit = async () => {
+    if (!username) {
+      Toast('请输入账号')
+      return 
+    }
+    if (!password) {
+      Toast('请输入密码')
+      return 
+    }
+    if (!verify) {
+      Toast('请输入验证码')
+      return 
+    }
+    if (verify != captcha) {
+      Toast("验证码错误, 请重试")
+      return 
+    }
+    try {
+      const { data } = await post('/user/register', {
+        username,
+        password
+      });
+      Toast('注册成功')
+    } catch(error) {
+      Toast('系统错误')
+      return 
+    }
+  }
+
   return (
     <div className={s.auth}>
-      <div className={s.head} />
+      <div className={s.head}></div>
       <div className={s.tab}>
         <span>注册页面</span>
       </div>
@@ -41,7 +72,7 @@ const Login = () => {
             阅读并同意<a>《猪猪的使用须知》</a>
           </label>
         </div>
-        <Button block theme="primary">
+        <Button onClick={onSubmit} block theme="primary">
           注册
         </Button>
       </div>
