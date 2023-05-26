@@ -64,6 +64,7 @@ const Home = () => {
     }
   }
 
+  // 添加账单弹窗
   const toggle = () => {
     typeRef.current && typeRef.current.show()
   };
@@ -95,24 +96,18 @@ const Home = () => {
       <div className={s.header}>
         <div className={s.dataWrap}>
           <span>
-            总支出：<b>¥ { totalExpense }</b>
+            总支出：<b>¥ {totalExpense}</b>
           </span>
           <span>
-            总收入：<b>¥ { totalIncome }</b>
+            总收入：<b>¥ {totalIncome}</b>
           </span>
         </div>
         <div className={s.typeWrap}>
-          <div className={s.left}>
-            <span className={s.title}>
-              类型
-              <Icon className={s.arrow} type="arrow-bottom" />
-            </span>
+          <div className={s.left} onClick={toggle}>
+            <span className={s.title}>{currentSelect.name || '全部类型'} <Icon className={s.arrow} type="arrow-bottom" /></span>
           </div>
           <div className={s.right}>
-            <span className={s.time}>
-              2018-06
-              <Icon className={s.arrow} type="arrow-bottom" />
-            </span>
+            <span className={s.time} onClick={monthToggle}>{currentTime} <Icon className={s.arrow} type="arrow-bottom" /></span>
           </div>
         </div>
       </div>

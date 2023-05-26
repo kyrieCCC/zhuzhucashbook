@@ -1,26 +1,18 @@
+
 import React from 'react'
-import ReactDOM, { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import 'lib-flexible'
+import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router
 } from "react-router-dom";
+import 'lib-flexible/flexible'
+import './index.css'
+import App from './App'
 
-const container = document.getElementById('root')
-const root = createRoot(container)
-
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <Router>
-//       <App />
-//     </Router>
-//   </React.StrictMode>,
-// )
-root.render(
-    <React.StrictMode>
+ReactDOM.render(
+  <React.StrictMode>
     <Router>
       <App />
     </Router>
   </React.StrictMode>,
+  document.getElementById('root')
 )

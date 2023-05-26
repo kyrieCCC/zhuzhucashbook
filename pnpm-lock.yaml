@@ -17,9 +17,9 @@ specifiers:
   lib-flexible: ^0.3.2
   postcss-pxtorem: ^6.0.0
   prop-types: ^15.8.1
-  react: ^18.2.0
+  react: 17.0.0
   react-captcha-code: ^1.0.7
-  react-dom: ^18.2.0
+  react-dom: 17.0.0
   react-router-dom: ^6.11.2
   vite: ^4.3.2
   vite-plugin-style-import: ^2.0.0
@@ -34,11 +34,11 @@ dependencies:
   lib-flexible: 0.3.2
   postcss-pxtorem: 6.0.0
   prop-types: 15.8.1
-  react: 18.2.0
-  react-captcha-code: 1.0.7_biqbaboplfbrettd7655fr4n2y
-  react-dom: 18.2.0_react@18.2.0
-  react-router-dom: 6.11.2_biqbaboplfbrettd7655fr4n2y
-  zarm: 2.8.2_biqbaboplfbrettd7655fr4n2y
+  react: 17.0.0
+  react-captcha-code: 1.0.7_q3ro2d4tisdm4fljj6b5phevaq
+  react-dom: 17.0.0_react@17.0.0
+  react-router-dom: 6.11.2_q3ro2d4tisdm4fljj6b5phevaq
+  zarm: 2.8.2_q3ro2d4tisdm4fljj6b5phevaq
 
 devDependencies:
   '@types/react': 18.2.6
@@ -873,7 +873,7 @@ packages:
       babel-plugin-syntax-jsx: 6.18.0
       lodash: 4.17.21
       picomatch: 2.3.1
-      styled-components: 5.3.10_biqbaboplfbrettd7655fr4n2y
+      styled-components: 5.3.10_q3ro2d4tisdm4fljj6b5phevaq
     dev: false
 
   /babel-plugin-syntax-jsx/6.18.0:
@@ -2269,7 +2269,7 @@ packages:
       performance-now: 2.1.0
     dev: false
 
-  /react-captcha-code/1.0.7_biqbaboplfbrettd7655fr4n2y:
+  /react-captcha-code/1.0.7_q3ro2d4tisdm4fljj6b5phevaq:
     resolution: {integrity: sha512-dCjig+V1Fh89uiMNeNeV/Nrc+lIqhMkUguv4OXZquelZ1v9+DDWs+YOWyhTXBbxpi453AO4f3EQoEwUWiciyLw==}
     peerDependencies:
       react: ^16.13.1
@@ -2277,21 +2277,22 @@ packages:
     dependencies:
       classnames: 2.3.2
       lodash: 4.17.21
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      styled-components: 5.3.10_biqbaboplfbrettd7655fr4n2y
+      react: 17.0.0
+      react-dom: 17.0.0_react@17.0.0
+      styled-components: 5.3.10_q3ro2d4tisdm4fljj6b5phevaq
     transitivePeerDependencies:
       - react-is
     dev: false
 
-  /react-dom/18.2.0_react@18.2.0:
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+  /react-dom/17.0.0_react@17.0.0:
+    resolution: {integrity: sha512-OGnFbxCjI2TMAZYMVxi4hqheJiN8rCEVVrL7XIGzCB6beNc4Am8M47HtkvxODZw9QgjmAPKpLba9FTu4fC1byA==}
     peerDependencies:
-      react: ^18.2.0
+      react: 17.0.0
     dependencies:
       loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.0
+      object-assign: 4.1.1
+      react: 17.0.0
+      scheduler: 0.20.2
     dev: false
 
   /react-is/16.13.1:
@@ -2306,7 +2307,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-router-dom/6.11.2_biqbaboplfbrettd7655fr4n2y:
+  /react-router-dom/6.11.2_q3ro2d4tisdm4fljj6b5phevaq:
     resolution: {integrity: sha512-JNbKtAeh1VSJQnH6RvBDNhxNwemRj7KxCzc5jb7zvDSKRnPWIFj9pO+eXqjM69gQJ0r46hSz1x4l9y0651DKWw==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -2314,26 +2315,27 @@ packages:
       react-dom: '>=16.8'
     dependencies:
       '@remix-run/router': 1.6.2
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-router: 6.11.2_react@18.2.0
+      react: 17.0.0
+      react-dom: 17.0.0_react@17.0.0
+      react-router: 6.11.2_react@17.0.0
     dev: false
 
-  /react-router/6.11.2_react@18.2.0:
+  /react-router/6.11.2_react@17.0.0:
     resolution: {integrity: sha512-74z9xUSaSX07t3LM+pS6Un0T55ibUE/79CzfZpy5wsPDZaea1F8QkrsiyRnA2YQ7LwE/umaydzXZV80iDCPkMg==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16.8'
     dependencies:
       '@remix-run/router': 1.6.2
-      react: 18.2.0
+      react: 17.0.0
     dev: false
 
-  /react/18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
+  /react/17.0.0:
+    resolution: {integrity: sha512-rG9bqS3LMuetoSUKHN8G3fMNuQOePKDThK6+2yXFWtoeTDLVNh/QCaxT+Jr+rNf4lwNXpx+atdn3Aa0oi8/6eQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+      object-assign: 4.1.1
     dev: false
 
   /regenerator-runtime/0.13.11:
@@ -2407,10 +2409,11 @@ packages:
     dev: true
     optional: true
 
-  /scheduler/0.23.0:
-    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
+  /scheduler/0.20.2:
+    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
     dependencies:
       loose-envify: 1.4.0
+      object-assign: 4.1.1
     dev: false
 
   /semver/5.7.1:
@@ -2536,7 +2539,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /styled-components/5.3.10_biqbaboplfbrettd7655fr4n2y:
+  /styled-components/5.3.10_q3ro2d4tisdm4fljj6b5phevaq:
     resolution: {integrity: sha512-3kSzSBN0TiCnGJM04UwO1HklIQQSXW7rCARUk+VyMR7clz8XVlA3jijtf5ypqoDIdNMKx3la4VvaPFR855SFcg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -2552,8 +2555,8 @@ packages:
       babel-plugin-styled-components: 2.1.3_styled-components@5.3.10
       css-to-react-native: 3.2.0
       hoist-non-react-statics: 3.3.2
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
+      react: 17.0.0
+      react-dom: 17.0.0_react@17.0.0
       shallowequal: 1.1.0
       supports-color: 5.5.0
     dev: false
@@ -2747,7 +2750,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zarm/2.8.2_biqbaboplfbrettd7655fr4n2y:
+  /zarm/2.8.2_q3ro2d4tisdm4fljj6b5phevaq:
     resolution: {integrity: sha512-siIW1xVI+UA0Cxp65cQArF4fRdUgBmxBQLSkobp2868IheKObMFT//5KyjQl16wpgyStv/3wAkAc1GVVyrg1jg==}
     peerDependencies:
       react: '>=16.3.1'
@@ -2761,7 +2764,7 @@ packages:
       normalize.css: 8.0.1
       popper.js: 1.16.1
       raf: 3.4.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
+      react: 17.0.0
+      react-dom: 17.0.0_react@17.0.0
       react-native-camera-roll-picker: 1.2.3
     dev: false

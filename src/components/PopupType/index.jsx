@@ -14,19 +14,22 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
 
     useEffect(() => {
         (async () => {
-          // 请求标签接口放在弹窗内，这个弹窗可能会被复用，所以请求如果放在外面，会造成代码冗余。
-          const { data: { list } } = await get('/type/list')
-          setExpense(list.filter(i => i.type == 1))
-          setIncome(list.filter(i => i.type == 2))
+            // 请求标签接口放在弹窗内，这个弹窗可能会被复用，所以请求如果放在外面，会造成代码冗余。
+            const { data: { list } } = await get('/type/list')
+            setExpense(list.filter(i => i.type == 1))
+            setIncome(list.filter(i => i.type == 2))
         })()
-      }, [])
+    }, [])
     
 
     if (ref) {
+        
         ref.current = {
             // 控制显示和隐藏
+            
             show: () => {
                 setShow(true)
+                console.log('我接受到参数了', ref.current.show)
             },
             close: () => {
                 setShow(false)
@@ -41,8 +44,10 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
         onSelect(item)
     }
 
-    return <Popup
-        visible={show}
+    return (
+        <Popup
+        // visible={show}
+        visible={true}
         direction="bottom"
         onMaskClick={() => setShow(false)}
         destroy={false}
@@ -70,6 +75,7 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
             </div>
         </div>
     </Popup>
+    )
 });
 
 PopupType.propTypes = {
