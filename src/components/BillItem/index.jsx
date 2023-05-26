@@ -4,9 +4,9 @@ import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { Cell } from "zarm";
 import { useNavigate } from "react-router-dom";
-import { typeMap } from "@utils";
+// import { typeMap } from "@utils";
 
-import s from "./style/module.less";
+import s from "./style.module.less";
 
 const BillItem = ({ bill }) => {
   const [income, setIncome] = useState(0); // 收入
