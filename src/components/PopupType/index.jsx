@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { Icon, Popup } from "zarm";
 import cx from 'classnames';
-import { get } from '@utils';
+import { get } from '@/utils';
 
 import s from './style.module.less'
 
@@ -12,11 +12,15 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
     const [expense, setExpense] = useState([]); // 支出类型标签
     const [income, setIncome] = useState([]); // 收入类型标签
 
-    useEffect(async () => {
-        const { data: { list } } = await get('/type/list')
-        setExpense(list.filter(item => item.type == 1))
-        setIncome(list.filter(item => item.type == 2))
-    }, [])
+    useEffect(() => {
+        (async () => {
+          // 请求标签接口放在弹窗内，这个弹窗可能会被复用，所以请求如果放在外面，会造成代码冗余。
+          const { data: { list } } = await get('/type/list')
+          setExpense(list.filter(i => i.type == 1))
+          setIncome(list.filter(i => i.type == 2))
+        })()
+      }, [])
+    
 
     if (ref) {
         ref.current = {

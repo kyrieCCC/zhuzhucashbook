@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { Icon, Pull } from "zarm";
 import { useState } from "react";
 import BillItem from "@/components/BillItem";
-import PopupType from '@/components/PopupType'
+import PopupType from '@/components/PopupType';
+import PopupDate from '@/components/PopupDate'
 import { get, REFRESH_STATE, LOAD_STATE } from '@/utils' // Pull 组件需要的一些常量
 import dayjs from "dayjs";
 
@@ -10,7 +11,8 @@ import dayjs from "dayjs";
 import s from "./style.module.less";
 
 const Home = () => {
-  const typeRef = useRef()
+  const monthRef = useRef(); // 月份筛选 ref
+  const typeRef = useRef();
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM'))
   const [page, setPage] = useState(1)// 分页
   const [list, setList] = useState([])
@@ -18,17 +20,19 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal); // 下拉刷新状态
   const [loading, setLoading] = useState(LOAD_STATE.normal); // 上拉加载状态
   const [currentSelect, setCurrentSelect] = useState({}); // 当前筛选类型
+  const [totalExpense, setTotalExpense] = useState(0); // 总支出
+  const [totalIncome, setTotalIncome] = useState(0); // 总收入
   
   
   useEffect(() => {
     getBillList()
-  }, [page, currentSelect])
+  }, [page, currentSelect, currentTime])
 
   // 获取账单的方法
   const getBillList = async () => {
     // const { data } = await get(`/bill/list?page=${page}$page_size=5&date=${currentTime}`);
     // 模拟数据
-    const { data } = await get(`/bill/list?page=${page}&page_size=5&date=2021-05&type_id=${currentSelect.id || 'all'}`);
+    const { data } = await get(`/bill/list?page=${page}&page_size=5&date=${currentTime}&type_id=${currentSelect.id || 'all'}`);
     console.log(dayjs().format('YYYY-MM'));
     console.log(data);
     // 下拉刷新，重制数据
@@ -64,6 +68,26 @@ const Home = () => {
     typeRef.current && typeRef.current.show()
   };
 
+    // 筛选类型
+    const select = (item) => {
+      setRefreshing(REFRESH_STATE.loading);
+      // 触发刷新列表，将分页重制为 1
+      setPage(1);
+      setCurrentSelect(item)
+    }
+
+   // 选择月份弹窗
+  const monthToggle = () => {
+    monthRef.current && monthRef.current.show()
+  };
+
+    // 筛选月份
+  const selectMonth = (item) => {
+    setRefreshing(REFRESH_STATE.loading);
+    setPage(1);
+    setCurrentTime(item)
+  };
+
 
 
   return (
@@ -71,10 +95,10 @@ const Home = () => {
       <div className={s.header}>
         <div className={s.dataWrap}>
           <span>
-            总支出：<b>￥200</b>
+            总支出：<b>¥ { totalExpense }</b>
           </span>
           <span>
-            总收入：<b>￥27000</b>
+            总收入：<b>¥ { totalIncome }</b>
           </span>
         </div>
         <div className={s.typeWrap}>
@@ -114,9 +138,11 @@ const Home = () => {
               />)
             }
           </Pull> : null
-          }
+        }
        
       </div>
+      <PopupType ref={typeRef} onSelect={select} />
+      <PopupDate ref={monthRef} mode="month" onSelect={selectMonth} />
     </div>
   );
 }
