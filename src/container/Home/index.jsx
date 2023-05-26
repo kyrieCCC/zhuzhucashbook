@@ -33,14 +33,16 @@ const Home = () => {
     // const { data } = await get(`/bill/list?page=${page}$page_size=5&date=${currentTime}`);
     // 模拟数据
     const { data } = await get(`/bill/list?page=${page}&page_size=5&date=${currentTime}&type_id=${currentSelect.id || 'all'}`);
-    console.log(dayjs().format('YYYY-MM'));
-    console.log(data);
+
     // 下拉刷新，重制数据
     if (page == 1) {
       setList(data.list)
     } else {
       setList(list.concat(data.list));
     }
+    // 获取总收入和总支出
+    setTotalExpense(data.totalExpense.toFixed(2));
+    setTotalIncome(data.totalIncome.toFixed(2));
     setTotalPage(data.totalPage);
     // 加载上滑状态
     setLoading(LOAD_STATE.success);

@@ -29,7 +29,6 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
             
             show: () => {
                 setShow(true)
-                console.log('我接受到参数了', ref.current.show)
             },
             close: () => {
                 setShow(false)
@@ -46,8 +45,7 @@ const PopupType = forwardRef(({ onSelect }, ref) => {
 
     return (
         <Popup
-        // visible={show}
-        visible={true}
+        visible={show}
         direction="bottom"
         onMaskClick={() => setShow(false)}
         destroy={false}
