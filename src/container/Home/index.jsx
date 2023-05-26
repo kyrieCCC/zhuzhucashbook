@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Icon, Pull } from "zarm";
 import { useState } from "react";
 import BillItem from "@/components/BillItem";
+import PopupType from '@/components/PopupType'
 import { get, REFRESH_STATE, LOAD_STATE } from '@/utils' // Pull 组件需要的一些常量
 import dayjs from "dayjs";
 
@@ -9,22 +10,25 @@ import dayjs from "dayjs";
 import s from "./style.module.less";
 
 const Home = () => {
+  const typeRef = useRef()
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM'))
   const [page, setPage] = useState(1)// 分页
   const [list, setList] = useState([])
   const [totalPage, setTotalPage] = useState(0); // 分页总数
   const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal); // 下拉刷新状态
   const [loading, setLoading] = useState(LOAD_STATE.normal); // 上拉加载状态
-
+  const [currentSelect, setCurrentSelect] = useState({}); // 当前筛选类型
+  
+  
   useEffect(() => {
     getBillList()
-  }, [page])
+  }, [page, currentSelect])
 
   // 获取账单的方法
   const getBillList = async () => {
     // const { data } = await get(`/bill/list?page=${page}$page_size=5&date=${currentTime}`);
     // 模拟数据
-    const { data } = await get(`/bill/list?page=${page}&page_size=5&date=2021-05`);
+    const { data } = await get(`/bill/list?page=${page}&page_size=5&date=2021-05&type_id=${currentSelect.id || 'all'}`);
     console.log(dayjs().format('YYYY-MM'));
     console.log(data);
     // 下拉刷新，重制数据
@@ -55,6 +59,10 @@ const Home = () => {
       setPage(page + 1)
     }
   }
+
+  const toggle = () => {
+    typeRef.current && typeRef.current.show()
+  };
 
 
 
