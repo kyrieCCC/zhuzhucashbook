@@ -1,11 +1,11 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { Popup, Icon, Keyboard } from "zarm";
+import { Popup, Icon, Keyboard, Input, Toast } from "zarm";
 import dayjs from 'dayjs';
 import PopupDate from '../PopupDate';
 import CustomIcon from '../CustomIcon';
-import { get, typeMap } from '@/utils';
+import { get, typeMap, post } from '@/utils';
 
 import s from './style.module.less'
 
@@ -19,7 +19,9 @@ const PopupAddBill = forwardRef((props, ref) => {
     const [currentType, setCurrentType] = useState({}); // 当前选中账单类型
     const [expense, setExpense] = useState([]); // 支出类型数组
     const [income, setIncome] = useState([]); // 收入类型数组
-
+    const [remark, setRemark] = useState('') // 添加备注信息
+    const [showRemark, setShowRemark] = useState(false) // 控制备注框的展示
+    
     useEffect(async () => {
         const { data: { list } } = await get('/type/list');
         const _expense = list.filter(i => i.type == 1); // 支出类型
@@ -40,14 +42,25 @@ const PopupAddBill = forwardRef((props, ref) => {
         }
     };
 
-    // 切换支出和收入
+    // 切换收入还是支出
     const changeType = (type) => {
-        setPayType(type)
+        setPayType(type);
+        // 切换之后，默认给相应类型的第一个值
+        if (type == 'expense') {
+            setCurrentType(expense[0]);
+        } else {
+            setCurrentType(income[0]);
+        }
     };
 
     // 日期选择回调
     const selectDate = (val) => {
         setDate(val);
+    };
+
+    // 选择账单类型
+    const choseType = (item) => {
+        setCurrentType(item)
     };
 
     // 监听输入框改变值
@@ -62,7 +75,7 @@ const PopupAddBill = forwardRef((props, ref) => {
 
         // 点击确认按钮时
         if (value == 'ok') {
-            
+            addBill()
             return
         }
 
@@ -72,6 +85,37 @@ const PopupAddBill = forwardRef((props, ref) => {
         if (value != '.' && amount.includes('.') && amount && amount.split('.')[1].length >= 2) return
         // amount += value
         setAmount(amount + value)
+    };
+
+    // 添加账单
+    const addBill = async () => {
+        if (!amount) {
+            Toast.show('请输入具体金额!')
+            return
+        }
+
+        const params = {
+            amount: Number(amount).toFixed(2),
+            type_id: currentType.id,
+            type_name: currentType.name,
+            date: dayjs(date).unix() * 1000,
+            pay_type: payType == 'expense' ? 1 : 2,
+            remark: remark || '',
+        }
+
+        const res = await post('/bill/add', params);
+
+        // 刷新数据
+        setAmount('');
+        setPayType('expense');
+        setCurrentType(expense[0]);
+        setDate(new Date());
+        setRemark('');
+        Toast.show('添加成功');
+        setShow(false);
+        if (props.onReload) {
+            props.onReload()
+        };
     };
 
     return (
@@ -115,6 +159,21 @@ const PopupAddBill = forwardRef((props, ref) => {
                             </div>)
                         }
                     </div>
+                </div>
+                <div className={s.remark}>
+                    {
+                        showRemark ? <Input
+                            autoHeight
+                            showLength
+                            maxLength={50}
+                            type="text"
+                            rows={3}
+                            value={remark}
+                            placeholder="请输入备注信息"
+                            onChange={(val) => setRemark(val)}
+                            onBlur={() => setShowRemark(false)}
+                        /> : <span onClick={() => setShowRemark(true)}>{remark || '添加备注'}</span>
+                    }
                 </div>
                 <Keyboard type="price" onKeyClick={(value) => handleMoney(value)} />
                 <PopupDate ref={dateRef} onSelect={selectDate} />
