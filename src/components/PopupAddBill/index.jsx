@@ -60,6 +60,11 @@ const PopupAddBill = forwardRef((props, ref) => {
                     >{dayjs(date).format('MM-DD')} <Icon className={s.arrow} type="arrow-bottom" /></div>
                 </div>
                 <PopupDate ref={dateRef} onSelect={selectDate} />
+            
+                <div className={s.money}>
+                    <span className={s.sufix}>¥</span>
+                    <span className={cx(s.amount, s.animation)}>100</span>
+                </div>
             </div>
         </Popup>
     );
