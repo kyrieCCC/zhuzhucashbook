@@ -138,11 +138,11 @@ const PopupAddBill = forwardRef(({ detail = {}, onReload}, ref) => {
             setDate(new Date());
             setRemark('');
             Toast.show('添加成功');
-            setShow(false);
-            if (props.onReload) {
-                props.onReload()
-            };
         }
+        setShow(false);
+        if (onReload) {
+            onReload()
+        };
     };
 
     return (
