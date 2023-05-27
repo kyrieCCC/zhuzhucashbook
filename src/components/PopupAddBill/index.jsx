@@ -9,7 +9,7 @@ import { get, typeMap, post } from '@/utils';
 
 import s from './style.module.less'
 
-const PopupAddBill = forwardRef((props, ref) => {
+const PopupAddBill = forwardRef(({ detail = {}, onReload}, ref) => {
     const dateRef = useRef();
 
     const [date, setDate] = useState(new Date()); // 日期
@@ -22,13 +22,33 @@ const PopupAddBill = forwardRef((props, ref) => {
     const [remark, setRemark] = useState('') // 添加备注信息
     const [showRemark, setShowRemark] = useState(false) // 控制备注框的展示
     
+    const id = detail && detail.id
+
+    // 编辑现有的账单详情
+    useEffect(() => {
+        if (detail.id) {
+            setPayType(detail.pay_type == 1 ? 'expense' : 'income')
+            setCurrentType({
+                id: detail.type_id,
+                name: detail.type_name
+            })
+            setRemark(detail.remark)
+            setAmount(detail.amount)
+            setDate(dayjs(Number(detail.date)).$d)
+        }
+    }, [detail]);
+
     useEffect(async () => {
         const { data: { list } } = await get('/type/list');
         const _expense = list.filter(i => i.type == 1); // 支出类型
         const _income = list.filter(i => i.type == 2); // 收入类型
         setExpense(_expense);
         setIncome(_income);
-        setCurrentType(_expense[0]); // 新建账单，类型默认是支出类型数组的第一项
+        
+        // 添加判断表示当前为编辑或者是新建
+        if (!id) {
+            setCurrentType(_expense[0]); // 新建账单，类型默认是支出类型数组的第一项
+        }
     }, []);
 
     if (ref) {
@@ -102,20 +122,27 @@ const PopupAddBill = forwardRef((props, ref) => {
             pay_type: payType == 'expense' ? 1 : 2,
             remark: remark || '',
         }
+        if (id) {
+            params.id = id;
+            // 如果有 id，则表示当前为编辑信息，需要调用详情更新接口
+            const result = await post('/bill/update', params);
+            Toast.show('修改成功');
+        } else {
 
-        const res = await post('/bill/add', params);
+            const res = await post('/bill/add', params);
 
-        // 刷新数据
-        setAmount('');
-        setPayType('expense');
-        setCurrentType(expense[0]);
-        setDate(new Date());
-        setRemark('');
-        Toast.show('添加成功');
-        setShow(false);
-        if (props.onReload) {
-            props.onReload()
-        };
+            // 刷新数据
+            setAmount('');
+            setPayType('expense');
+            setCurrentType(expense[0]);
+            setDate(new Date());
+            setRemark('');
+            Toast.show('添加成功');
+            setShow(false);
+            if (props.onReload) {
+                props.onReload()
+            };
+        }
     };
 
     return (
