@@ -2,10 +2,15 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Popup, Icon } from "zarm";
+import dayjs from 'dayjs';
+import PopupDate from '../PopupDate'
 
 import s from './style.module.less'
 
 const PopupAddBill = forwardRef((props, ref) => {
+    const dateRef = useRef();
+
+    const [date, setDate] = useState(new Date()); // 日期
     const [show, setShow] = useState(false)
     const [payType, setPayType] = useState('expense')
 
@@ -23,7 +28,12 @@ const PopupAddBill = forwardRef((props, ref) => {
     // 切换支出和收入
     const changeType = (type) => {
         setPayType(type)
-    }
+    };
+
+    // 日期选择回调
+    const selectDate = (val) => {
+        setDate(val);
+    };
 
     return (
         <Popup
@@ -44,7 +54,12 @@ const PopupAddBill = forwardRef((props, ref) => {
                         <span onClick={() => changeType('expense')} className={cx({ [s.expense]: true, [s.active]: payType == 'expense' })}>支出</span>
                         <span onClick={() => changeType('income')} className={cx({ [s.income]: true, [s.active]: payType == 'income' })}>收入</span>
                     </div>
+                    <div
+                        className={s.time}
+                        onClick={() => dateRef.current && dateRef.current.show()}
+                    >{dayjs(date).format('MM-DD')} <Icon className={s.arrow} type="arrow-bottom" /></div>
                 </div>
+                <PopupDate ref={dateRef} onSelect={selectDate} />
             </div>
         </Popup>
     );
