@@ -4,7 +4,8 @@ import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import { Cell } from "zarm";
 import { useNavigate } from "react-router-dom";
-// import { typeMap } from "@utils";
+import { typeMap } from "@/utils";
+import CustomIcon from '../CustomIcon';
 
 import s from "./style.module.less";
 
@@ -60,10 +61,10 @@ const BillItem = ({ bill }) => {
               onClick={() => goToDetail(item)}
               title={
                 <>
-                  {/* <CustomIcon
-              className={s.itemIcon}
-              type={item.type_id ? typeMap[item.type_id].icon : 1}
-            /> */}
+                  <CustomIcon
+                    className={s.itemIcon}
+                    type={item.type_id ? typeMap[item.type_id].icon : 1}
+                  />
                   <span>{item.type_name}</span>
                 </>
               }

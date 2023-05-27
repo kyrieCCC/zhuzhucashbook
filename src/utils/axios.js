@@ -22,6 +22,7 @@ axios.interceptors.response.use(res => {
             console.log(result)
             Toast.show(result)
         }
+        // 充当路由守卫，当我们的token过期的时候，会自动跳到login页提醒重新登录
         if (res.data.code == 401) {
             window.location.href = '/login'
         }
