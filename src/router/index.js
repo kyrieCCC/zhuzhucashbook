@@ -1,7 +1,8 @@
 import Home from "@/container/Home";
 import Data from "@/container/Data";
 import User from "@/container/User";
-import Login from "@/container/Login"
+import Login from "@/container/Login";
+import Detail from "@/container/Detail"
 
 const routes = [
     {
@@ -19,6 +20,10 @@ const routes = [
     {
         path: "/login",
         component: Login
+    },
+    {
+        path: "/detail",
+        component: Detail
     },
 ];
 
