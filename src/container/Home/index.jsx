@@ -3,7 +3,8 @@ import { Icon, Pull } from "zarm";
 import { useState } from "react";
 import BillItem from "@/components/BillItem";
 import PopupType from '@/components/PopupType';
-import PopupDate from '@/components/PopupDate'
+import PopupDate from '@/components/PopupDate';
+import PopupAddBill from '@/components/PopupAddBill';
 import { get, REFRESH_STATE, LOAD_STATE } from '@/utils' // Pull 组件需要的一些常量
 import dayjs from "dayjs";
 
@@ -13,6 +14,7 @@ import s from "./style.module.less";
 const Home = () => {
   const monthRef = useRef(); // 月份筛选 ref
   const typeRef = useRef();
+  const addRef = useRef(); // 添加弹窗 ref
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM'))
   const [page, setPage] = useState(1)// 分页
   const [list, setList] = useState([])
@@ -91,6 +93,11 @@ const Home = () => {
     setCurrentTime(item)
   };
 
+    // 添加信息弹窗
+  const addToggle = () => {
+    addRef.current && addRef.current.show()
+  }
+
 
 
   return (
@@ -138,8 +145,10 @@ const Home = () => {
         }
        
       </div>
+      <div className={s.add} onClick={addToggle}><span>+</span></div>
       <PopupType ref={typeRef} onSelect={select} />
       <PopupDate ref={monthRef} mode="month" onSelect={selectMonth} />
+      <PopupAddBill ref={addRef} onReload={refreshData} />
     </div>
   );
 }
