@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FilePicker, Input, Toast } from 'zarm';
+import { Button, FilePicker, Input, Toast, NoticeBar } from 'zarm';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import axios from 'axios';
@@ -50,8 +50,8 @@ const UserInfo = () => {
 
     const save = async () => {
         const { data } = await post('/user/editUserInfo', {
-            signature,
-            avatar
+            signature
+            // avatar
         });
 
         Toast.show('修改成功')
@@ -64,12 +64,13 @@ const UserInfo = () => {
             <div className={s.userinfo}>
                 <h1>个人资料</h1>
                 <div className={s.item}>
-                    <div className={s.title}>头像</div>
+                    <div className={s.title}>头像(暂不可用)</div>
+                    <NoticeBar theme="danger" speed={100}>修改头像功能目前正在维护中。。请过几天再来试试吧^.^</NoticeBar>
                     <div className={s.avatar}>
                         <img className={s.avatarUrl} src={avatar} alt="" />
                         <div className={s.desc}>
-                            {/* <span>支持 jpg、png、jpeg 格式大小 200KB 以内的图片</span> */}
-                            <span>头像修改功能目前维护中。。。</span>
+                            <span>支持 jpg、png、jpeg 格式大小 200KB 以内的图片</span>
+                            {/* <span>头像修改功能目前维护中。。。</span> */}
                             <FilePicker className={s.filePicker} onChange={handleSelect} accept="image/*">
                                 <Button className={s.upload} theme='primary' size='xs' disabled>点击上传</Button>
                             </FilePicker>
