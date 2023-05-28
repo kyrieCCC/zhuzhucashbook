@@ -2,7 +2,8 @@ import Home from "@/container/Home";
 import Data from "@/container/Data";
 import User from "@/container/User";
 import Login from "@/container/Login";
-import Detail from "@/container/Detail"
+import Detail from "@/container/Detail";
+import UserInfo from "@/container/Userinfo";
 
 const routes = [
     {
@@ -24,6 +25,10 @@ const routes = [
     {
         path: "/detail",
         component: Detail
+    },
+    {
+        path: "/userinfo",
+        component: UserInfo
     },
 ];
 
