@@ -50,7 +50,7 @@ const Login = () => {
           username,
           password,
         });
-        Toast("注册成功");
+        Toast.show("注册成功");
         setType('login')
       }
     } catch (error) {
